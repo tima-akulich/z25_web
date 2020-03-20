@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{{ block.super }} - {{ test.title }}{% endblock %}
+{% block content %}
+<p>{% now 'd/m/Y' %}</p>
+<p>{{ test }} - {{ test.number }}</p>
+{% if test.number > 1 %}
+    <h1>TRUE</h1>
+{% else %}
+    <h1>False</h1>
+{% endif %}
+{# comment text #}
+{% with my_var=test.number %}
+    Var = {{ my_var }}
+{% endwith %}
+<p>{% lorem 10 %}</p>
+{% include 'ads.html' with var=test.title %}
+{% endblock content %}
