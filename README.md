@@ -9,7 +9,7 @@
 - https://github.com/prasad01dalavi/python_books/blob/master/Daniel%20Greenfeld%20-%20Two%20Scoops%20of%20Django%201.11%20-%202017.pdf
 хорошая книга по Django
 
-### Homework 1 (lesson1)
+### Homework 1
 0. Почитать про джангу. Оперировать терминами - проект, приложения, model, view, template.
 
 1. Создать отдельное приложение в этом проекте и назвать его test_app.
@@ -30,8 +30,7 @@
 - https://docs.djangoproject.com/en/3.0/ref/contrib/admin/
 - https://docs.djangoproject.com/en/3.0/ref/templates/builtins/
 
-
-### Homework 1 (lesson1)
+### Homework 2
 1. В приложении shop описать все необходимые модели для работы нашего "Amazing" магазина (придумать какие нужны, и как связаны будут)
 2. Описать несколько теплейтов:
 - Темплейт который выводит список всех товаров (внешний вид на ваше усмотрение)
