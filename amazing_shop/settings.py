@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'test_app',
+    'try_mtv'
 ]
 
 MIDDLEWARE = [

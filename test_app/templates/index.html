@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'ads.html' %}
+<table>
+    <thead>
+    <tr>
+        <td>#</td>
+        <td>Номер</td>
+        <td>Назавание</td>
+        <td>Вопросы</td>
+    </tr>
+    </thead>
+    <tbody>
+        {% for test in tests %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ test.number }}</td>
+            <td><a href="{% url 'test_details' test_id=test.id %}">{{ test.title }}</a></td>
+            <td>
+                <ol>
+                    {% for question in test.questions.all %}
+                    <li>{{ question }}</li>
+                    {% endfor %}
+                </ol>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
