@@ -37,6 +37,7 @@ class Product(models.Model):
     weight = models.FloatField()
     size = models.FloatField()
     related_products = models.ManyToManyField('shop.Product', blank=True)
+    image = models.ManyToManyField('shop.Image')
 
     class Meta:
         verbose_name = 'Товар'
@@ -173,6 +174,18 @@ class OrderStatus(models.Model):
     class Meta:
         verbose_name = 'Статус заказа'
         verbose_name_plural = 'Статусы заказа'
+
+    def __str__(self):
+        return self.title
+
+
+class Image(models.Model):
+    title = models.CharField(max_length=60)
+    image = models.BinaryField(null=True)
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
 
     def __str__(self):
         return self.title
