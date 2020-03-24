@@ -1,0 +1,18 @@
+{% load reverse_string %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <h1>{{ NEW_SETTINGS|reverse_str:5 }}</h1>
+{#    <h2>{% my_tag 1 2 3 4 %}</h2>#}
+    <li><a href="{% url 'products' %}">Products</a></li>
+    <li><a>Categories</a></li>
+</ul>
+{% block content %}
+{% endblock content %}
+</body>
+</html>

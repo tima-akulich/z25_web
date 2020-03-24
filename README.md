@@ -38,3 +38,23 @@
 3. Добавить в admin панель все модели из задания (1) (настроить колонки, фильтры, поиск)
 
 PS: добавить css, чтобы страница не была белым полотном.
+
+
+ # 3. Lesson / 24.03.2020
+### Documentation
+- https://en.wikipedia.org/wiki/Cross-site_request_forgery
+- https://docs.djangoproject.com/en/3.0/topics/forms/
+- https://docs.djangoproject.com/en/3.0/ref/templates/builtins/
+- https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+### Homework 3
+1. Добавить bootstrap статику в проект. https://getbootstrap.com/
+2. Используя bootstrap привести сайт к нормальному виду
+На Странице сайта должен быть header в котором будут ссылки на разные страницы,
+Header должен содержать в себе кнопки Products | Categories
+В Products должен быть список всек товаров. Оформить в виде сетки (взять из bootstrap)
+Products должены поддерживать пагинацию https://docs.djangoproject.com/en/3.0/topics/pagination/
+На странице Categories должна быть страница в виде двух колонок.
+Список категорий| Товары (в виде таблицы как на странице Products)
+
+PS: таблицы не использовать
