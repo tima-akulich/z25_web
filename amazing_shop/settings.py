@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'test_app',
-    'try_mtv'
+    'try_mtv',
+    'djmoney'
 ]
 
 MIDDLEWARE = [
