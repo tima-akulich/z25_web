@@ -1,7 +1,4 @@
 from django.contrib import admin
-
-
-# Register your models here.
 from test_app.models import Test
 from test_app.models import Question
 from test_app.models import Answer
@@ -23,4 +20,3 @@ admin.site.register(Test, TestAdmin)
 admin.site.register(Question)
 admin.site.register(Answer)
 admin.site.register(UserAnswer, UserAnswerAdmin)
-

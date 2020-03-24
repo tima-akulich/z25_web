@@ -1,10 +1,10 @@
-from django.shortcuts import render
+
 from django.http import HttpResponseRedirect
 from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from test_app.models import Test
-# Create your views here
+
 
 
 def tests_index_view(request):
@@ -29,5 +29,4 @@ def search(request):
 
 def redirect(request):
     return HttpResponsePermanentRedirect('https://www.google.com/')
-
 
