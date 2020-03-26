@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'shop/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Send</button>
+</form>
+<img src="{% static 'shop/img/DSC_2410.jpg' %}">
+<script src="{% static 'shop/js/script.js' %}"></script>
+</body>
+</html>
