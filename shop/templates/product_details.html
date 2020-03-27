@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ product }}
+    Наименование: {{ product.title|capfirst }}<br>
+    Цена за шт.: {{ product.price }} руб.<br>
+    Остаток на складе: {{ product.value }} шт.<br>
 {% endblock %}
