@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand">Amazing Shop</a>
+  <a class="navbar-brand" href="{% url 'products' %}" >Amazing Shop</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -19,7 +19,7 @@
         <a class="nav-link" href="{% url 'product_list' %}">Products</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+        <a class="nav-link" href="#">Categories</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,15 +43,19 @@
   </div>
 </nav>
 
-<div class="jumbotron">
-  <h1 class="display-4">Welcome to the Amazing Shop!</h1>
-  <p class="lead">Это простой пример блока с компонентом в стиле jumbotron для привлечения дополнительного внимания к содержанию или информации.</p>
-  <hr class="my-4">
-  <p>Использются служебные классы для типографики и расстояния содержимого в контейнере большего размера.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p>
+<div style="margin-right: 1500px;margin-left: 20px">
+    <h3 style="margin-left: 20px; margin-top: 20px; margin-bottom: 20px">Categories:</h3>
+    <ul class="list-group">
+        {% for i in categories %}
+            <li class="list-group-item"><a href="{% url 'prods_by_cat' %}">{{ i.title }}</a></li>
+        {% endfor %}
+</ul>
 </div>
+
+
+{% block content %}
+{% endblock %}
+
 
 </body>
 </html>

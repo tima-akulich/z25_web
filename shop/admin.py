@@ -25,6 +25,7 @@ class ProductImageInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     filter_horizontal = ('categories',)
     inlines = (ProductImageInline, )
+    list_display = ['title', 'price', 'published']
 
 
 admin.site.register(Product, ProductAdmin)
