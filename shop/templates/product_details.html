@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    {{ product }}
+   <h1  style="font-size:160%; color:red;" >{{ product }}</h1>
+   <p>{{ product.description }}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.origin }}</p>
+
 {% endblock %}

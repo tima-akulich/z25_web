@@ -1,18 +1,80 @@
-{% load reverse_string %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'shop/css/bootstrap.css' %}">
+     <link href="{% static 'shop/css/bootstrap-grid.css' %}" rel="stylesheet">
 </head>
 <body>
-<ul>
-    <h1>{{ NEW_SETTINGS|reverse_str:5 }}</h1>
-{#    <h2>{% my_tag 1 2 3 4 %}</h2>#}
-    <li><a href="{% url 'products' %}">Products</a></li>
-    <li><a>Categories</a></li>
-</ul>
+<nav class="navbar navbar-light" style="background-color: darksalmon;">
+ <a class="navbar-brand" href="#"><img src="{% static 'shop/images/canada-retail.png' %}" width="70" height="70" alt="shop image" class="rounded-circle">Amazing Shop</a>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><a href="#">Home</a></li>
+  <li class="breadcrumb-item active " href="{% url 'products' %}">Products</li>
+    <li class="breadcrumb-item active " href="{% url 'categories' %}">Categories</li>
+</ol>
+  <ul class="nav navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'products' %}>Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'categories' %}>Categories</a>
+    </li>
+  </ul>
+    <div class="dropdown open">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Info
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+    <div class="dropdown open">
+  <a class="btn btn-secondary dropdown-toggle" href="http://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Contacts
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+  <form class="form-inline pull-xs-right">
+      <label>
+          <input class="form-control" type="text" placeholder="Search">
+      </label>
+      <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</nav>
+
+
+
 {% block content %}
 {% endblock content %}
+
+
+
+<div class="jumbotron">
+  <h1 class="display-3">Official distributor</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="m-y-2">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+
+<div style="margin: auto" class="text-xs-center" id="example-caption-6">Developing in process&hellip; 50%</div>
+<progress class="progress" value="50" max="100" aria-describedby="example-caption-6">
+  <div class="progress">
+    <span class="progress-bar" style="width: 150%;"></span>
+  </div>
+</progress>
+
 </body>
 </html>

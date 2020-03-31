@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
 from shop.forms import CardForm
-
-
-from shop.models import Product
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from shop.models import Product, Category
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def hello_world(request):
@@ -21,8 +21,18 @@ def products_list_view(request, category=None):
     products = Product.objects.filter(published=True)
     if category:
         products = products.filter(categories__slug=category)
+    paginator = Paginator(products, 4)
+    page = request.GET.get('page')
+    try:
+        products_num = paginator.page(page)
+    except PageNotAnInteger:
+        products_num = paginator.page(1)
+    except EmptyPage:
+        products_num = paginator.page(paginator.num_pages)
     return render(request, 'products_list.html', context={
         'products': products,
+        'page' : page,
+        'products_num' : products_num,
     })
 
 
@@ -43,4 +53,13 @@ def try_forms(request):
             print('Errors', form.errors)
     return render(request, 'try_forms.html', context={
         'form': form
+    })
+
+def categories_view(request, category=None):
+    products = Product.objects.filter(published=True)
+    categories = Category.objects.all()
+    if category:
+        products = products.filter(categories__slug=category)
+    return render(request, 'categories.html', context={
+        'products': products, 'categories': categories
     })

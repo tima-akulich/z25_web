@@ -1,28 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table>
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Price</td>
-            <td>Categories</td>
-        </tr>
-    </thead>
-    <tbody>
-
+   <div class="container" style="background-color: lightskyblue">
+  <div class="row" style="background-color: lightskyblue">
+    <div class="col-1">
+     Title
+    </div>
+    <div class="col-2">
+      Price
+    </div>
+    <div class="col-3">
+      Categories
+    </div>
+  </div>
+</div>
         {% for product in products %}
-            <tr>
-                <td><a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a></td>
-                <td>{{ product.price }}</td>
-                <td>
+                  <div class="row" style="background-color: lightskyblue">
+                <div class="col-1" style="text-align: center"><a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a></div>
+                <div class="col-2" style="text-align: center">{{ product.price }}</div>
+                <div class="col-3">
                     <ul>
                         {% for category in product.categories.all %}
                             <li><a href="{% url 'products_by_category' category=category.slug %}">{{ category.slug }}</a></li>
                         {% endfor %}
                     </ul>
-                </td>
-            </tr>
+            </div>
+            </div>
         {% endfor %}
-    </tbody>
-    </table>
+    {% include "pagination.html" with page=products_num %}
+
+
 {% endblock content %}
