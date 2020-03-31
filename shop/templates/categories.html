@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col"><strong>Category</strong></div>
+        <div class="col"><strong>Product</strong></div>
+    </div>
+    {% for category in categories %}
+    <div class="row">
+        <div class="col">{{category.title}}</div>
+
+        <div class="col">
+            <ul>
+                {% for product in category.products %}
+                <li> {{ product.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

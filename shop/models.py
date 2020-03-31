@@ -7,6 +7,10 @@ class Category(models.Model):
     subcategories = models.ManyToManyField('self', blank=True)
     slug = models.SlugField()
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
     def __str__(self):
         return self.title
 

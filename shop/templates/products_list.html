@@ -1,28 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table>
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Price</td>
-            <td>Categories</td>
-        </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <div class="row">
+        <div class="col"><strong>№</strong></div>
+        <div class="col"><strong>Title</strong></div>
+        <div class="col"><strong>Price</strong></div>
+        <div class="col"><strong>Categories</strong></div>
+    </div>
+    {% for product in products %}
+    <div class="row">
+        <div class="col">{{product.id}}</div>
+        <div class="col">{{product.title}}</div>
+        <div class="col">{{product.price}}</div>
+        <div class="col">
+            <ul>
+                {% for category in product.categories.all %}
+                <li><a href="{% url 'products_by_category' category=category.slug %}">{{ category }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
-        {% for product in products %}
-            <tr>
-                <td><a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a></td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <ul>
-                        {% for category in product.categories.all %}
-                            <li><a href="{% url 'products_by_category' category=category.slug %}">{{ category.slug }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+
 {% endblock content %}

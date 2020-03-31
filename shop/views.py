@@ -1,20 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from shop.forms import CardForm
-
 
 from shop.models import Product
-
-
-def hello_world(request):
-    return HttpResponse('Hello world!')
-
-
-def hello_world_template(request):
-    text = request.GET.get('text', 'world')
-    return render(request, 'hello_world.html', context={
-        'text': text,
-    })
+from shop.models import Category
 
 
 def products_list_view(request, category=None):
@@ -33,14 +20,10 @@ def product_details_view(request, pk):
     })
 
 
-def try_forms(request):
-    form = CardForm()
-    if request.POST:
-        form = CardForm(request.POST)
-        if form.is_valid():
-            print('Clean data', form.cleaned_data)
-        else:
-            print('Errors', form.errors)
-    return render(request, 'try_forms.html', context={
-        'form': form
+def categories_view(request):
+    categories = Category.objects.filter()
+    for category in categories:
+        category.products = category.product_set.all()
+    return render(request, 'categories.html', context={
+        'categories': categories,
     })
