@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    <table>
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Price</td>
-            <td>Categories</td>
-        </tr>
-    </thead>
-    <tbody>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-4">Title</div>
+             <div class="col-4">Price</div>
+             <div class="col-4">Categories</div>
+        </div>
+    <div class="row">
         {% for product in products %}
-            <tr>
-                <td><a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a></td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <ul>
-                        {% for category in product.categories.all %}
-                            <li><a href="{% url 'products_by_category' category=category.slug %}">{{ category.slug }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
+               <div class="col-4"> <a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a></div>
+               <div class="col-4">{{ product.price }}</div>
+                {% for category in product.categories.all %}
+                <div class="col-4"> <a href="{% url 'products_by_category' category=category.slug %}">{{ category.slug }}</a></div>
+                {% endfor %}
         {% endfor %}
-    </tbody>
-    </table>
+    </div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</div>
 {% endblock content %}

@@ -1,9 +1,9 @@
+from unicodedata import category
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from shop.forms import CardForm
-
-
-from shop.models import Product
+from shop.models import Product, Category
 
 
 def hello_world(request):
@@ -21,8 +21,21 @@ def products_list_view(request, category=None):
     products = Product.objects.filter(published=True)
     if category:
         products = products.filter(categories__slug=category)
+    paginator = Paginator(products, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, 'products_list.html', context={
-        'products': products,
+        'products': products, 'page_obj': page_obj
+    })
+
+
+def categories_view(request, category=None):
+    products = Product.objects.filter(published=True)
+    categories = Category.objects.all()
+    if category:
+        products = products.filter(categories__slug=category)
+    return render(request, 'categories.html', context={
+        'products': products, 'categories': categories
     })
 
 
