@@ -12,12 +12,15 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField("Товар", max_length=50)
     categories = models.ManyToManyField('shop.Category', blank=True)
     price = models.FloatField()
     value = models.PositiveIntegerField()
     published = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = 'Телефон'
+        verbose_name_plural = 'Телефоны'
 
 class ProductImage(models.Model):
     description = models.TextField()

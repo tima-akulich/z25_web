@@ -1,3 +1,11 @@
-.errorlist {
-    color: red;
+.mainpage {
+    height: 800px;
+    width:100%;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHPAKT6TkiEDp3RMDtFmm7f3lsd4y8P-4YFOlxEWwuxns-SI-T&usqp=CAU);
+background-size: 100%;
+   }
+.col-sm{
+padding-top:20px;
+margin: auto;
 }
+  
