@@ -1,4 +1,4 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ product }}
+    {% include 'includes/product.html' with product=product %}
 {% endblock %}
