@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
 from shop.models import Product
 
@@ -35,3 +36,8 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ('title', 'price', 'published', 'value')
 
+
+class RegisterForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password', 'email')

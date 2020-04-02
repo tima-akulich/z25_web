@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 
-from shop.forms import ProductForm
+from shop.forms import ProductForm, RegisterForm
 from shop.models import Product, Category
 
 
@@ -127,3 +127,17 @@ def product_form_view(request):
         'form': form
     })
 
+
+class RegisterFormView(FormView):
+    template_name = 'register.html'
+    form_class = RegisterForm
+    success_url = reverse_lazy('products')
+
+    def form_valid(self, form):
+        form.save()
+        if self.request.GET.get("exception"):
+            raise Exception("ERROR!")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)

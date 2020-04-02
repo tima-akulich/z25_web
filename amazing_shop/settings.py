@@ -135,7 +135,7 @@ MEDIA_ROOT = 'media'
 
 NEW_SETTINGS = 'some settings'
 
-PAGE_SIZE = 1
+PAGE_SIZE = 6
 
 LOGIN_REDIRECT_URL = reverse_lazy('products')
 LOGOUT_REDIRECT_URL = reverse_lazy('products')
