@@ -19,6 +19,7 @@ class ProductImageInline(admin.TabularInline):
     model = ProductImage
     fields = ('description', 'image')
     extra = 0
+    min_num = 1
     max_num = 5
 
 

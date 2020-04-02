@@ -1,18 +1,17 @@
-{% load reverse_string %}
+{% load reverse_string static html_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'shop/css/bootstrap.min.css' %}"/>
 </head>
 <body>
-<ul>
-    <h1>{{ NEW_SETTINGS|reverse_str:5 }}</h1>
-{#    <h2>{% my_tag 1 2 3 4 %}</h2>#}
-    <li><a href="{% url 'products' %}">Products</a></li>
-    <li><a>Categories</a></li>
-</ul>
-{% block content %}
-{% endblock content %}
+<div class="container">
+    {% include 'navbar.html' %}
+    {% block content %}
+        Hello
+    {% endblock content %}
+</div>
 </body>
 </html>

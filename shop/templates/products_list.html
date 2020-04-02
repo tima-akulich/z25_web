@@ -1,28 +1,4 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table>
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Price</td>
-            <td>Categories</td>
-        </tr>
-    </thead>
-    <tbody>
-
-        {% for product in products %}
-            <tr>
-                <td><a href="{% url 'product_details' pk=product.pk %}">{{ product.title }}</a></td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <ul>
-                        {% for category in product.categories.all %}
-                            <li><a href="{% url 'products_by_category' category=category.slug %}">{{ category.slug }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+    {% include 'includes/_product_list.html' with products=object_list %}
 {% endblock content %}

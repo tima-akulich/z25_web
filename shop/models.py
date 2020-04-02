@@ -18,6 +18,9 @@ class Product(models.Model):
     value = models.PositiveIntegerField()
     published = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
 
 class ProductImage(models.Model):
     description = models.TextField()

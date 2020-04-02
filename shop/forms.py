@@ -1,5 +1,7 @@
 from django import forms
 
+from shop.models import Product
+
 
 class CardForm(forms.Form):
     NUMBER_LENGTH = 16
@@ -26,3 +28,10 @@ class CardForm(forms.Form):
 
     def clean_to_card(self):
         return self._clean_card_number(self.cleaned_data['to_card'])
+
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('title', 'price', 'published', 'value')
+
