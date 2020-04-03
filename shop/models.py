@@ -72,3 +72,10 @@ class Order(models.Model):
         default=WAITING
     )
     address = models.TextField()
+
+
+class ServerError(models.Model):
+    method = models.TextField()
+    path = models.TextField()
+    data = models.TextField()
+    response = models.TextField()

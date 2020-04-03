@@ -3,6 +3,7 @@ from django.contrib import admin  # noqa
 from shop.models import Product
 from shop.models import Category
 from shop.models import ProductImage
+from shop.models import ServerError
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -28,5 +29,11 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ProductImageInline, )
 
 
+class ServerErrorAdmin(admin.ModelAdmin):
+    list_display = ('method', 'path', 'data', 'response')
+    list_filter = ('method', 'path', 'data', 'response')
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(ServerError, ServerErrorAdmin)
