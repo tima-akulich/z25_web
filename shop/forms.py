@@ -35,9 +35,3 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('title', 'price', 'published', 'value')
-
-
-class RegisterForm(forms.ModelForm):
-    class Meta:
-        model = get_user_model()
-        fields = ('username', 'password', 'email')

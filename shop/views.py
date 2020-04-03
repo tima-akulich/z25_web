@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
@@ -10,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 
-from shop.forms import ProductForm, RegisterForm
+from shop.forms import ProductForm
 from shop.models import Product, Category
 
 
@@ -130,7 +131,7 @@ def product_form_view(request):
 
 class RegisterFormView(FormView):
     template_name = 'register.html'
-    form_class = RegisterForm
+    form_class = UserCreationForm
     success_url = reverse_lazy('products')
 
     def form_valid(self, form):
