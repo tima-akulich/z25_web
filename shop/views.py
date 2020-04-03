@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
@@ -9,10 +10,10 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.views.generic import TemplateView, ListView, DetailView, FormView
-
+from django.contrib import messages
 from shop.forms import ProductForm
 from shop.models import Product, Category
-
+from .forms import UserRegisterForm
 
 @csrf_exempt
 @require_http_methods(['GET', 'HEAD', 'DELETE', 'PUT'])
@@ -127,3 +128,17 @@ def product_form_view(request):
         'form': form
     })
 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}')
+            return redirect(reverse_lazy('products'))
+    else:
+        form = UserRegisterForm()
+    return render(request, 'register.html', context={
+        'form': form
+    })

@@ -8,6 +8,7 @@ from shop.views import TryCBV
 from shop.views import ProductsList
 from shop.views import ProductDetail
 from shop.views import ProductFormView
+from shop.views import register
 
 from django.conf.urls.static import static
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path('', ProductsList.as_view(), name='products'),
     path('product/<str:pk>', ProductDetail.as_view(), name='product_details'),
     path('category/', category_root_view, name='categories_list'),
+    path('registration', register, name='registration'),
     path('category/<slug:category>', ProductsList.as_view(), name='products_by_category'),
 ]
 
