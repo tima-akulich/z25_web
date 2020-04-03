@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if basket %}
+        <table>
+        {% for item in basket.items.all %}
+            <tr>
+                <td>{{ item }}</td>
+                <td>{% include 'includes/basket_button.html' with product_id=item.product_id %}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h1>Basket is empty!</h1>
+    {% endif %}
+{% endblock %}

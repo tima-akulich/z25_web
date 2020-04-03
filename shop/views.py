@@ -1,3 +1,7 @@
+from contextlib import suppress
+from datetime import timedelta
+
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -5,13 +9,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.urls import reverse, reverse_lazy
 from django.conf import settings
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 
-from shop.forms import ProductForm
-from shop.models import Product, Category
+from shop.forms import ProductForm, RegistrationForm, BasketEditForm
+from shop.models import Product, Category, Basket, BasketItem
 
 
 @csrf_exempt
@@ -98,7 +103,7 @@ class ProductsList(LoginRequiredMixin, ListView):
         return context
 
 
-class ProductFormView(LoginRequiredMixin, FormView):
+class ProductFormView(FormView):
     template_name = 'product_form.html'
     form_class = ProductForm
     success_url = reverse_lazy('products')
@@ -127,3 +132,66 @@ def product_form_view(request):
         'form': form
     })
 
+
+class RegistrationView(FormView):
+    form_class = RegistrationForm
+    template_name = 'registration/signup.html'
+    success_url = reverse_lazy('products')
+
+    def form_valid(self, form):
+        form.save()
+        user = authenticate(
+            self.request,
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password1']
+        )
+        login(self.request, user)
+        return super().form_valid(form)
+
+
+class BasketEditView(LoginRequiredMixin, FormView):
+    http_method_names = ['post']
+    form_class = BasketEditForm
+
+    def form_valid(self, form):
+        Basket.objects.filter(
+            user=self.request.user,
+            updated_at__lt=timezone.now() - timedelta(
+                days=settings.BASKET_STORE_DAYS
+            )
+        ).delete()
+        try:
+            basket = Basket.objects.filter(
+                user=self.request.user
+            ).latest('updated_at')
+        except Basket.DoesNotExist:
+            basket = Basket.objects.create(user=self.request.user)
+
+        product_id = form.cleaned_data['product_id']
+        basket_item = basket.items.filter(
+            product_id=product_id
+        ).first()
+        if basket_item:
+            basket_item.delete()
+        else:
+            BasketItem.objects.create(
+                basket=basket,
+                product_id=product_id
+            )
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER') \
+               or reverse_lazy('products')
+
+
+class BasketView(LoginRequiredMixin, TemplateView):
+    template_name = 'basket.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with suppress(Basket.DoesNotExist):
+            context['basket'] = Basket.objects.filter(
+                user=self.request.user
+            ).prefetch_related('items').latest('updated_at')
+        return context

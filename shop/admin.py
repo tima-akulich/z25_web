@@ -4,6 +4,8 @@ from shop.models import Product
 from shop.models import Category
 from shop.models import ProductImage
 
+from shop.models import RequestError
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'get_subcategories')
@@ -28,5 +30,29 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ProductImageInline, )
 
 
+class RequestErrorAdmin(admin.ModelAdmin):
+    list_display = (
+        'exception_name',
+        'exception_value',
+        'request_method',
+        'path',
+        'created_at'
+    )
+    list_filter = ('exception_name', 'request_method', 'created_at')
+    search_fields = ('exception_name', 'exception_value', 'path')
+    readonly_fields = (
+        'exception_name',
+        'exception_value',
+        'exception_tb',
+        'query',
+        'data',
+        'request_method',
+        'path',
+        'created_at'
+    )
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+
+admin.site.register(RequestError, RequestErrorAdmin)
