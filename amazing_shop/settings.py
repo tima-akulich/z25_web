@@ -142,3 +142,9 @@ LOGIN_REDIRECT_URL = reverse_lazy('products')
 LOGOUT_REDIRECT_URL = reverse_lazy('products')
 
 BASKET_STORE_DAYS = 30
+
+try:
+    import django_heroku
+    django_heroku.settings(locals())
+except ImportError:
+    pass
