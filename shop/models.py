@@ -1,3 +1,5 @@
+import base64
+
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -26,11 +28,26 @@ class Product(models.Model):
 class ProductImage(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='products/%Y/%m/%d/')
+    image_base64 = models.TextField(default=None, null=True, blank=True)
     product = models.ForeignKey(
         'shop.Product',
         related_name='images',
         on_delete=models.CASCADE
     )
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image_base64 = 'data:{content_type};base64,{data}'.format(
+                content_type='jpeg',
+                data=base64.b64encode(
+                    self.image.file.read()
+                ).decode()
+            )
+        super().save(*args, **kwargs)
+
+    @property
+    def image_url(self):
+        return self.image_base64 or self.image.url
 
 
 class Basket(models.Model):

@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    fields = ('description', 'image')
+    fields = ('description', 'image', 'image_base64')
     extra = 0
     min_num = 1
     max_num = 5

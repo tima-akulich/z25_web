@@ -1,7 +1,7 @@
 <div class="card">
     {% with product_image=product.images.first %}
         {% if product_image %}
-            <img src="{{ product_image.image.url }}" class="card-img-top">
+            <img src="{{ product_image.image_url }}" class="card-img-top">
         {% endif %}
     {% endwith %}
     <div class="card-body">
