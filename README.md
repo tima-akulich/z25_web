@@ -78,7 +78,7 @@ PS: таблицы не использовать
 - https://docs.djangoproject.com/en/3.0/howto/custom-management-commands/ - django commands
 - https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/ - переменные
 
-### Homework 4
+### Homework 5
 1. Привести к красивому виду кнопку "добавить в корзину", привести к нормальному виду страницу с корзиной
 2. Добавить страницу оформления заказа (заполнение данных и отправка заказа на сервер + добавить прсмотр заказа в админке)
 3. Задеплоить на heroku (к ПР приложить ссылку)
