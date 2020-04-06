@@ -1,6 +1,6 @@
 from contextlib import suppress
 from datetime import timedelta
-
+from django.db.models import Sum
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -194,4 +194,5 @@ class BasketView(LoginRequiredMixin, TemplateView):
             context['basket'] = Basket.objects.filter(
                 user=self.request.user
             ).prefetch_related('items').latest('updated_at')
+            context['total_price'] = sum(item.product.price * item.count for item in context['basket'].items.all())
         return context
