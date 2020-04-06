@@ -1,10 +1,12 @@
-<div class="row">
-    {% for product in products %}
-        <div class="col-sm">
-            {% include 'includes/product.html' with product=product %}
-        </div>
+    {% for products_row in product_dict.values %}
+            <div class="row">
+                {% for product in products_row %}
+                    <div class="col-sm-6">
+                        {% include 'includes/product.html' with product=product %}
+                    </div>
+               {% endfor %}
+            </div>
     {% endfor %}
-</div>
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     {% if page_obj.has_previous %}

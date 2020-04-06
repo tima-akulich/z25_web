@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if basket %}
-        <table>
-        {% for item in basket.items.all %}
-            <tr>
-                <td>{{ item }}</td>
-                <td>{% include 'includes/basket_button.html' with product_id=item.product_id %}</td>
-            </tr>
-        {% endfor %}
-        </table>
+    {% if basket.items.all %}
+        {% include 'includes/_basket_table.html' with basket=basket %}
+        <div>
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'order' %}">Order</a>
+        </div>
     {% else %}
-        <h1>Basket is empty!</h1>
+        <div>
+            <h4>Basket is empty!</h4>
+        </div>
     {% endif %}
 {% endblock %}

@@ -3,7 +3,7 @@ from django.contrib import admin  # noqa
 from shop.models import Product
 from shop.models import Category
 from shop.models import ProductImage
-
+from shop.models import Order
 from shop.models import RequestError
 
 
@@ -52,7 +52,14 @@ class RequestErrorAdmin(admin.ModelAdmin):
     )
 
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('basket', 'created_at', 'updated_at', 'status', 'address')
+    readonly_fields = ('basket', 'created_at', 'updated_at')
+    search_fields = ('status',)
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Order, OrderAdmin)
 
 admin.site.register(RequestError, RequestErrorAdmin)

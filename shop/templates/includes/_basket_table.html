@@ -1,0 +1,29 @@
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product</th>
+      <th scope="col">Count</th>
+      <th scope="col">Cost</th>
+      <th scope="col">Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in basket.items.all %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td><a href="{% url 'product_details' pk=item.product_id %}">{{ item }}</a></td>
+          <td>{{ item.count }}</td>
+          <td>{{ item.product.price }}</td>
+          <td>{% include 'includes/basket_button.html' with product_id=item.product_id %}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <th scope="row">Total cost:</th>
+      <td></td>
+      <th scope="row">{{ total_cost }}</th>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

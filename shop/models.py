@@ -11,7 +11,7 @@ class Category(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.title
+        return f'{self.title}'
 
 
 class Product(models.Model):
@@ -22,7 +22,7 @@ class Product(models.Model):
     published = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return f'{self.title}'
 
 
 class ProductImage(models.Model):
@@ -71,7 +71,7 @@ class BasketItem(models.Model):
     count = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
-        return f'{self.product}: {self.count}'
+        return f'{self.product}'
 
 
 class Order(models.Model):

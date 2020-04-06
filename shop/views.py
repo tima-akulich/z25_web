@@ -1,3 +1,4 @@
+import math
 from contextlib import suppress
 from datetime import timedelta
 
@@ -5,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django import forms
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.urls import reverse, reverse_lazy
@@ -16,7 +18,7 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 
 from shop.forms import ProductForm, RegistrationForm, BasketEditForm
-from shop.models import Product, Category, Basket, BasketItem
+from shop.models import Product, Category, Basket, BasketItem, Order
 
 
 @csrf_exempt
@@ -96,10 +98,15 @@ class ProductsList(LoginRequiredMixin, ListView):
             products = products.filter(categories__slug=category)
         return products
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=object_list, **kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
         context['selected_category'] = self.kwargs.get('category')
         context['categories'] = Category.objects.all()
+        column = settings.COLUMN_PAGE
+        row = math.ceil(len(context['object_list']) / column)
+        context['product_dict'] = {i: context['object_list'][
+                           i * column: i * column + column]
+                        for i in range(row)}
         return context
 
 
@@ -194,4 +201,26 @@ class BasketView(LoginRequiredMixin, TemplateView):
             context['basket'] = Basket.objects.filter(
                 user=self.request.user
             ).prefetch_related('items').latest('updated_at')
+            context['total_cost'] = sum(item.product.price * item.count
+                                        for item in context['basket'].items.all())
         return context
+
+    def get_template_names(self):
+        templates = super().get_template_names()
+        if self.request.resolver_match.url_name == 'order':
+            templates = ['order.html']
+        return templates
+
+
+class OrderFormView(LoginRequiredMixin, FormView):
+    http_method_names = ['post']
+    form_class = forms.Form
+    success_url = reverse_lazy('products')
+
+    def form_valid(self, form):
+        Order.objects.create(
+            basket_id=self.request.POST.get('basket_id'),
+            address=self.request.POST.get('address')
+        )
+        Basket.objects.create(user=self.request.user)
+        return super().form_valid(form)

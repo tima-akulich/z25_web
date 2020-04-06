@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Shop</a>
+    <a class="navbar-brand" href="{% url 'products' %}">Shop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -8,15 +8,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'products' %}">Products</a>
+            <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'products' %}active{% endif %}" href="{% url 'products' %}">Products</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'categories_list' %}">Categories</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'products_by_category' %}active{% endif %}" href="{% url 'categories_list' %}">Categories</a>
             </li>
             {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'basket' %}">My basket</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'basket' %}active{% endif %}" href="{% url 'basket' %}">My basket</a>
                 </li>
             {% endif %}
         </ul>
@@ -25,7 +25,7 @@
               <a role="button" href="{% url 'login' %}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</a>
               <a role="button" href="{% url 'signup' %}" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Signup</a>
             {% else %}
-                {{ request.user }}
+                <a class="m-lg-2">{{ request.user }}</a>
               <a role="button" href="{% url 'logout' %}" class="btn btn-outline-info my-2 my-sm-0" type="submit">Logout</a>
             {% endif %}
         </form>

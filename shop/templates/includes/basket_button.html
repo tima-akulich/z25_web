@@ -4,8 +4,8 @@
     {% csrf_token %}
     <input type="hidden" name="product_id" value="{{ product_id }}">
     {% if user_product_ids|product_exists:product_id %}
-        <button>Remove</button>
+        <button class="btn btn-outline-info btn-sm my-2 my-sm-0">Remove</button>
     {% else %}
-        <button>Add</button>
+        <button class="btn btn-outline-success btn-sm my-2 my-sm-0">Add</button>
     {% endif %}
 </form>

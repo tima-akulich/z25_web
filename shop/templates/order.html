@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if basket.items.all %}
+        {% include 'includes/_basket_table.html' with basket=basket %}
+        <div>
+        <form method="post" action="{% url 'confirm-order' %}">
+            {% csrf_token %}
+            <input type="hidden" name="basket_id" value="{{ basket.id }}">
+               <p>Input your address:<br>
+                <input name="address" class="col-sm-7">
+               </p>
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Confirm order</button>
+        </form>
+        </div>
+    {% else %}
+        <div>
+            <h4>Basket is empty!</h4>
+        </div>
+    {% endif %}
+{% endblock %}
