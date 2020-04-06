@@ -1,6 +1,31 @@
 from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 from shop.models import Product
+
+
+class RegistrationForm(UserCreationForm):
+    password1 = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={'autocomplete': 'new-password', 'class': 'some-class'}
+        ),
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password1', 'password2', 'first_name')
+
+
+class BasketEditForm(forms.Form):
+    product_id = forms.IntegerField(required=True)
+
+    def clean_product_id(self):
+        product_id = self.cleaned_data['product_id']
+        if not Product.objects.filter(id=product_id).exists():
+            raise forms.ValidationError('Invalid product ID')
+        return product_id
 
 
 class CardForm(forms.Form):
