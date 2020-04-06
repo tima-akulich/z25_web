@@ -98,8 +98,8 @@ class ProductsList(LoginRequiredMixin, ListView):
             products = products.filter(categories__slug=category)
         return products
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
         context['selected_category'] = self.kwargs.get('category')
         context['categories'] = Category.objects.all()
         column = settings.COLUMN_PAGE
