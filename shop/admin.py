@@ -3,6 +3,7 @@ from django.contrib import admin  # noqa
 from shop.models import Product
 from shop.models import Category
 from shop.models import ProductImage
+from shop.models import Error505
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -28,5 +29,10 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ProductImageInline, )
 
 
+class Error505Admin(admin.ModelAdmin):
+    list_display = ('status_code', 'body', 'time_period')
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Error505, Error505Admin)

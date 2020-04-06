@@ -72,3 +72,13 @@ class Order(models.Model):
         default=WAITING
     )
     address = models.TextField()
+
+
+class Error505(models.Model):
+    status_code = models.PositiveSmallIntegerField()
+    body = models.TextField()
+    time_period = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Ошибка 505'
+        verbose_name_plural = 'Ошибки 505'
