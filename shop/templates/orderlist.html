@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user %}
+        <div class="alert alert-primary" role="alert">
+            Order List:
+        </div>
+        <form method="post" action="{% url 'order' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Заказать</button>
+        </form>
+    {% else %}
+        <h2 style="margin-top: 30px">You cant make an order</h2>
+    {% endif %}
+{% endblock %}

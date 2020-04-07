@@ -11,6 +11,7 @@ from shop.views import ProductFormView
 from shop.views import RegistrationView
 from shop.views import BasketEditView
 from shop.views import BasketView
+from shop.views import OrderFormView
 
 from django.conf.urls.static import static
 
@@ -25,7 +26,8 @@ urlpatterns = [
     path('category/<slug:category>', ProductsList.as_view(), name='products_by_category'),
     path('signup', RegistrationView.as_view(), name='signup'),
     path('basket-edit', BasketEditView.as_view(), name='basket-edit'),
-    path('basket', BasketView.as_view(), name='basket')
+    path('basket', BasketView.as_view(), name='basket'),
+    path('order/', OrderFormView.as_view(), name='order')
 ]
 
 if settings.DEBUG:

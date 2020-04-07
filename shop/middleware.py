@@ -1,11 +1,8 @@
 import traceback
 
 from django.utils.deprecation import MiddlewareMixin
-<<<<<<< HEAD
-from .models import Error505
-=======
+
 from shop.models import RequestError
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
 
 
 def my_exception_middleware(get_response):
@@ -30,17 +27,6 @@ class MyMiddleware:
         return response
 
 
-<<<<<<< HEAD
-class Hook500Error:
-    def __init(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        response = self.get_response(request)
-        if str(response.status_code).startswith('5'):
-            Error505.objects.create(status_code=response.status_code, body='500+Error')
-        return response
-=======
 class LogExceptionMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -58,4 +44,4 @@ class LogExceptionMiddleware:
             query=dict(request.GET),
             data=dict(request.POST)
         )
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+

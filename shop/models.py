@@ -95,16 +95,6 @@ class Order(models.Model):
     address = models.TextField()
 
 
-<<<<<<< HEAD
-class Error505(models.Model):
-    status_code = models.PositiveSmallIntegerField()
-    body = models.TextField()
-    time_period = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Ошибка 505'
-        verbose_name_plural = 'Ошибки 505'
-=======
 class RequestError(models.Model):
     exception_name = models.CharField(max_length=50)
     exception_value = models.CharField(max_length=250)
@@ -120,4 +110,4 @@ class RequestError(models.Model):
 
     def __str__(self):
         return f'{self.exception_name}: {self.exception_value}'
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+

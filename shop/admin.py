@@ -3,7 +3,7 @@ from django.contrib import admin  # noqa
 from shop.models import Product
 from shop.models import Category
 from shop.models import ProductImage
-from shop.models import Error505
+from shop.models import Order
 
 from shop.models import RequestError
 
@@ -31,10 +31,6 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ProductImageInline, )
 
 
-<<<<<<< HEAD
-class Error505Admin(admin.ModelAdmin):
-    list_display = ('status_code', 'body', 'time_period')
-=======
 class RequestErrorAdmin(admin.ModelAdmin):
     list_display = (
         'exception_name',
@@ -55,14 +51,22 @@ class RequestErrorAdmin(admin.ModelAdmin):
         'path',
         'created_at'
     )
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'basket',
+        'status',
+        'address',
+        'created_at',
+        'updated_at'
+    )
+    list_filter = ('basket', 'address', 'created_at')
+    search_fields = ('address', 'created_at')
 
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
-<<<<<<< HEAD
-admin.site.register(Error505, Error505Admin)
-=======
-
 admin.site.register(RequestError, RequestErrorAdmin)
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+admin.site.register(Order, OrderAdmin)
+

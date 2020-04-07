@@ -28,6 +28,7 @@ SECRET_KEY = 'y7ad6x*nt*(x)wnd=#md+5bc66h#n64dz^3t=%_7_-izobnao='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
+#os.getenv('DEBUG') == 'True'
 ALLOWED_HOSTS = ['*']
 
 
@@ -44,11 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-<<<<<<< HEAD
-    'shop.middleware.Hook500Error',
-=======
     'shop.middleware.LogExceptionMiddleware',
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,10 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
-=======
-    # 'shop.middleware.MyMiddleware',
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
 ]
 
 ROOT_URLCONF = 'amazing_shop.urls'

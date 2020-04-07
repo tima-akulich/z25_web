@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
 from shop.models import Product
+from shop.models import Order
 
 
 class RegistrationForm(UserCreationForm):
@@ -60,3 +61,13 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ('title', 'price', 'published', 'value')
 
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ('basket', 'address')
+
+        widgets = {
+            'basket': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+        }

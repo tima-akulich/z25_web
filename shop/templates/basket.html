@@ -1,15 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if basket %}
-        <table>
-        {% for item in basket.items.all %}
-            <tr>
-                <td>{{ item }}</td>
-                <td>{% include 'includes/basket_button.html' with product_id=item.product_id %}</td>
-            </tr>
-        {% endfor %}
-        </table>
+    <div class="alert alert-info" role="alert">
+        <h1>Your Basket:</h1>
+    </div>
+    {% if basket.items.count %}
+        <div class="container">
+            <div class="row">
+                {% for item in basket.items.all %}
+                    <div class="col-sm">
+                        <div class="card border-success mb-3" style="max-width: 18rem; margin-top: 20px">
+                            <div class="card-header bg-transparent border-success font-weight-bold">{{ item }}</div>
+                            <div class="card-body text-success">
+                                <h5 class="card-title">Success card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk
+                                    of
+                                    the card's content.</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-success">
+                                {% include 'includes/basket_button.html' with product_id=item.product_id %}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% else %}
-        <h1>Basket is empty!</h1>
+        <div class="alert alert-warning" role="alert">
+           Basket is Empty
+        </div>
     {% endif %}
 {% endblock %}

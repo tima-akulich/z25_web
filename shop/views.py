@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 
-from shop.forms import ProductForm, RegistrationForm, BasketEditForm
+from shop.forms import ProductForm, RegistrationForm, BasketEditForm, OrderForm
 from shop.models import Product, Category, Basket, BasketItem
 
 
@@ -195,3 +195,13 @@ class BasketView(LoginRequiredMixin, TemplateView):
                 user=self.request.user
             ).prefetch_related('items').latest('updated_at')
         return context
+
+
+class OrderFormView(LoginRequiredMixin, FormView):
+    template_name = 'orderlist.html'
+    form_class = OrderForm
+    success_url = reverse_lazy('products')
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
