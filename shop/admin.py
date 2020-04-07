@@ -1,6 +1,7 @@
 from django.contrib import admin  # noqa
+from django.utils.safestring import mark_safe
 
-from shop.models import Product
+from shop.models import Product, Order
 from shop.models import Category
 from shop.models import ProductImage
 
@@ -52,7 +53,25 @@ class RequestErrorAdmin(admin.ModelAdmin):
     )
 
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('get_user', 'address')
+    readonly_fields = ('basket', 'get_ordered_products')
+
+    def get_user(self, obj):
+        return obj.basket.user
+    get_user.short_description = 'User'
+
+    def get_ordered_products(self, obj):
+        result = ''
+        for item in obj.basket.items.all():
+            result += f'<strong>{item.product}</strong>: {item.count}<br>'
+        return mark_safe(result)
+    get_ordered_products.short_description = 'Products'
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 
 admin.site.register(RequestError, RequestErrorAdmin)
+
+admin.site.register(Order, OrderAdmin)

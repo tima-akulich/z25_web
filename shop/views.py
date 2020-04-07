@@ -1,10 +1,12 @@
 from contextlib import suppress
 from datetime import timedelta
+from django.db import models
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models import Sum, F
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.urls import reverse, reverse_lazy
@@ -13,10 +15,11 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView
 
-from shop.forms import ProductForm, RegistrationForm, BasketEditForm
-from shop.models import Product, Category, Basket, BasketItem
+from shop.forms import ProductForm, RegistrationForm, BasketEditForm, \
+    OrderForm, BasketItemForm
+from shop.models import Product, Category, Basket, BasketItem, Order
 
 
 @csrf_exempt
@@ -103,19 +106,10 @@ class ProductsList(LoginRequiredMixin, ListView):
         return context
 
 
-class ProductFormView(FormView):
+class ProductFormView(CreateView):
     template_name = 'product_form.html'
     form_class = ProductForm
     success_url = reverse_lazy('products')
-
-    def form_valid(self, form):
-        form.save()
-        if self.request.GET.get("exception"):
-            raise Exception("ERROR!")
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
 
 
 @login_required
@@ -185,13 +179,59 @@ class BasketEditView(LoginRequiredMixin, FormView):
                or reverse_lazy('products')
 
 
-class BasketView(LoginRequiredMixin, TemplateView):
+class BasketView(LoginRequiredMixin, FormView):
     template_name = 'basket.html'
+    form_class = OrderForm
+    success_url = reverse_lazy('products')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        basket = None
         with suppress(Basket.DoesNotExist):
-            context['basket'] = Basket.objects.filter(
+            basket = Basket.objects.filter(
                 user=self.request.user
             ).prefetch_related('items').latest('updated_at')
+        context['basket'] = basket
+        if basket:
+            context['total'] = basket.items.all().annotate(
+                item_price=Sum(F('count') * F('product__price'), output_field=models.FloatField())
+            ).aggregate(
+                total=Sum('item_price')
+            )['total']
+
         return context
+
+    def form_valid(self, form):
+        with suppress(Basket.DoesNotExist):
+            basket = Basket.objects.filter(
+                user=self.request.user
+            ).latest('updated_at')
+        if not basket:
+            raise Http404
+        Order.objects.create(
+            address=form.cleaned_data['address'],
+            basket=basket
+        )
+        products = []
+        for item in basket.items.all().select_related('product'):
+            product = item.product
+            product.value = F('value') - item.count
+            products.append(product)
+        Product.objects.bulk_update(products)
+        Basket.objects.create(
+            user=self.request.user
+        )
+        return super().form_valid(form)
+
+
+class BasketItemView(UpdateView):
+    http_method_names = ["post"]
+    form_class = BasketItemForm
+    success_url = reverse_lazy("basket")
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(
+            BasketItem,
+            id=self.kwargs['item_id'],
+            basket__user=self.request.user
+        )
