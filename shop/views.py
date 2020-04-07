@@ -218,9 +218,10 @@ class OrderFormView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('products')
 
     def form_valid(self, form):
+        basket = Basket.objects.filter(id=form.data['basket_id']).first()
         Order.objects.create(
-            basket_id=self.request.POST.get('basket_id'),
-            address=self.request.POST.get('address')
+            basket=basket,
+            address=form.data['address']
         )
         Basket.objects.create(user=self.request.user)
         return super().form_valid(form)

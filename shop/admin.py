@@ -5,6 +5,8 @@ from shop.models import Category
 from shop.models import ProductImage
 from shop.models import Order
 from shop.models import RequestError
+from shop.models import Basket
+from shop.models import BasketItem
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -52,6 +54,17 @@ class RequestErrorAdmin(admin.ModelAdmin):
     )
 
 
+class BasketItemInline(admin.TabularInline):
+    model = BasketItem
+    fields = ('product', 'count')
+    extra = 0
+
+
+class BasketAdmin(admin.ModelAdmin):
+    list_display = ('user', 'id', 'created_at', 'updated_at')
+    inlines = (BasketItemInline,)
+
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('basket', 'created_at', 'updated_at', 'status', 'address')
     readonly_fields = ('basket', 'created_at', 'updated_at')
@@ -60,6 +73,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Basket, BasketAdmin)
 admin.site.register(Order, OrderAdmin)
 
 admin.site.register(RequestError, RequestErrorAdmin)
