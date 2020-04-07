@@ -1,7 +1,7 @@
     {% for products_row in product_dict.values %}
-            <div class="row justify-content-center no-gutters">
+            <div class="row align-items-center">
                 {% for product in products_row %}
-                    <div class="col-sm-6 flex-shrink-1 d-flex align-items-stretch">
+                    <div class="col-sm-6 align-self-end">
                         {% include 'includes/product.html' with product=product %}
                     </div>
                {% endfor %}
