@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-07 18:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: shop/models.py:11 shop/models.py:28
+msgid "Title"
+msgstr ""
+
+#: shop/models.py:15
+msgid "Subcategories"
+msgstr ""
+
+#: shop/models.py:17
+msgid "Slug"
+msgstr ""
+
+#: shop/models.py:20
+msgid "Category"
+msgstr ""
+
+#: shop/models.py:21 shop/models.py:32 shop/templates/navbar.html:16
+msgid "Categories"
+msgstr ""
+
+#: shop/models.py:34
+msgid "Price"
+msgstr ""
+
+#: shop/models.py:35
+msgid "Value"
+msgstr ""
+
+#: shop/models.py:36
+msgid "Published"
+msgstr ""
+
+#: shop/models.py:39
+msgid "Product"
+msgstr ""
+
+#: shop/models.py:40 shop/templates/navbar.html:13
+msgid "Products"
+msgstr ""
+
+#: shop/templates/base.html:12
+msgid ""
+"\n"
+"        <h1>Text 1</h1>\n"
+"        <h2>Text 2</h2>\n"
+"    "
+msgstr ""
+
+#: shop/templates/basket.html:37
+#, python-format
+msgid "%(items_count)s product"
+msgid_plural "%(items_count)s products"
+msgstr[0] ""
+msgstr[1] ""
+
+#: shop/templates/basket.html:40
+#, python-format
+msgid " Total: %(total)s"
+msgstr ""
+
+#: shop/templates/navbar.html:20
+msgid "My Basket"
+msgstr ""

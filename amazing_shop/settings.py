@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     # 'shop.middleware.MyMiddleware',
 ]
 
@@ -115,7 +116,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Русский'),
+    ('be', 'Belarus'),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -143,6 +152,9 @@ LOGIN_REDIRECT_URL = reverse_lazy('products')
 LOGOUT_REDIRECT_URL = reverse_lazy('products')
 
 BASKET_STORE_DAYS = 30
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
 
 try:
     import django_heroku

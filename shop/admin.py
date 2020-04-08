@@ -1,5 +1,7 @@
 from django.contrib import admin  # noqa
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 from shop.models import Product, Order
 from shop.models import Category
@@ -55,7 +57,7 @@ class RequestErrorAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('get_user', 'address')
-    readonly_fields = ('basket', 'get_ordered_products')
+    readonly_fields = ('basket', 'get_ordered_products', 'get_products_count')
 
     def get_user(self, obj):
         return obj.basket.user
@@ -67,6 +69,15 @@ class OrderAdmin(admin.ModelAdmin):
             result += f'<strong>{item.product}</strong>: {item.count}<br>'
         return mark_safe(result)
     get_ordered_products.short_description = 'Products'
+
+    def get_products_count(self, obj):
+        count = obj.basket.items.all().count()
+        return ngettext(
+            '%(items_count)s product', '%(items_count)s products', count
+        ) % {
+            'items_count': count
+        }
+    get_products_count.short_description = _('Количество продуктов')
 
 
 admin.site.register(Product, ProductAdmin)

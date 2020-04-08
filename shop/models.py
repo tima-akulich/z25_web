@@ -4,22 +4,40 @@ from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from django.utils.translation import gettext_lazy as _
+
 
 class Category(models.Model):
-    title = models.CharField(max_length=20, unique=True)
-    subcategories = models.ManyToManyField('self', blank=True)
-    slug = models.SlugField()
+    title = models.CharField(_('Title'), max_length=20, unique=True)
+    subcategories = models.ManyToManyField(
+        'self',
+        blank=True,
+        verbose_name=_('Subcategories')
+    )
+    slug = models.SlugField(_('Slug'))
+
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def __str__(self):
         return self.title
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=50)
-    categories = models.ManyToManyField('shop.Category', blank=True)
-    price = models.FloatField()
-    value = models.PositiveIntegerField()
-    published = models.BooleanField(default=False)
+    title = models.CharField(_('Title'), max_length=50)
+    categories = models.ManyToManyField(
+        'shop.Category',
+        blank=True,
+        verbose_name=_('Categories')
+    )
+    price = models.FloatField(_('Price'))
+    value = models.PositiveIntegerField(_('Value'))
+    published = models.BooleanField(_('Published'), default=False)
+
+    class Meta:
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
 
     def __str__(self):
         return self.title
