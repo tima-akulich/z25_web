@@ -89,11 +89,12 @@ PS: таблицы не использовать
 - https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html - celery
 - https://habr.com/ru/post/461775/ - зачем celery?
 
-### Homework 7
+### Homework 6
 1. Сдедать перевод сайта/админки на русский язык
 2. При регистрации пользователя добавить email на форму
 3. Создать периодическую задачу, которая раз в неделю (в понедельник в 9 утра), рассылает всем пользователям 
 email о новых товарах которые поступили в продажу
 
 PS: https://docs.djangoproject.com/en/3.0/topics/email/
+
 PSS: кто сделает реальную отправку письма на реальную почту тому +
