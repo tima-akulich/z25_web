@@ -15,7 +15,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password1', 'password2', 'first_name')
+        fields = ('username', 'password1', 'password2', 'email')
 
 
 class BasketEditForm(forms.Form):

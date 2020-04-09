@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 <form method="post">
     {{ form.as_p }}
     {% csrf_token %}
-    <button type="submit">Create</button>
+    <button type="submit">{% trans 'Create' %}e</button>
 </form>
 {% endblock content %}

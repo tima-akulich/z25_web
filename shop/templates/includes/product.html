@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div class="card">
     {% with product_image=product.images.first %}
         {% if product_image %}
@@ -7,7 +9,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ product.title }}</h5>
         <p class="card-text">{{ product.price }}</p>
-        <a href="{% url 'product_details' pk=product.pk %}" class="btn btn-primary">Go to product</a>
+        <a href="{% url 'product_details' pk=product.pk %}" class="btn btn-primary">{% trans 'Go to product' %}</a>
         {% include 'includes/basket_button.html' with product_id=product.id %}
     </div>
 </div>
