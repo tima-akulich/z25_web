@@ -217,7 +217,7 @@ class BasketView(LoginRequiredMixin, FormView):
             product = item.product
             product.value = F('value') - item.count
             products.append(product)
-        Product.objects.bulk_update(products)
+        Product.objects.bulk_update(products, fields=('value',))
         Basket.objects.create(
             user=self.request.user
         )

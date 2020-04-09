@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 from shop.models import Product, Order, BasketItem
 
+from django.utils.translation import gettext_lazy as _
+
 
 class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
@@ -11,11 +13,12 @@ class RegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={'autocomplete': 'new-password', 'class': 'some-class'}
         ),
+        label=_('password1')
     )
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password1', 'password2', 'first_name')
+        fields = ('username', 'password1', 'password2', 'email')
 
 
 class BasketEditForm(forms.Form):
@@ -72,5 +75,3 @@ class BasketItemForm(forms.ModelForm):
     class Meta:
         model = BasketItem
         fields = ('count', )
-
-

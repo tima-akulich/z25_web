@@ -152,6 +152,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('products')
 LOGOUT_REDIRECT_URL = reverse_lazy('products')
 
 BASKET_STORE_DAYS = 30
+NEW_PRODUCT_DAYS = 1
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
@@ -161,3 +162,9 @@ try:
     django_heroku.settings(locals())
 except ImportError:
     pass
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
