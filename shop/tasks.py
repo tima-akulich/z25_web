@@ -1,7 +1,6 @@
 import time
 from datetime import timedelta
 from django.core.mail import send_mail
-from celery import shared_task
 
 
 @shared_task
@@ -26,9 +25,10 @@ SCHEDULE = {
 
 @shared_task
 def send_email_task():
+    products = Products.obj.all
     send_mail(
         'New products',
-        f'Hello, {name}!\n The list of new products:\n{products}',
+        f'HelloThe list of new products:',
         'amazing.shop.test@gmail.com',
         ['mrtwister5950@mail.com']
     )
