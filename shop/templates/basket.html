@@ -6,9 +6,9 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Count</th>
-                <th scope="col">Price</th>
+                <th scope="col">{% trans 'Title' %}</th>
+                <th scope="col">{% trans 'Count' %}</th>
+                <th scope="col">{% trans 'Price' %}</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -21,7 +21,7 @@
                             <form method="post" action="{% url 'basket-item' item_id=item.id %}">
                                 {% csrf_token %}
                                 <input type="number" min="1" max="{{ item.product.value }}" value="{{ item.count }}" name="count">
-                                <button type="submit" class="btn btn-dark btn-sm">Save</button>
+                                <button type="submit" class="btn btn-dark btn-sm">{% trans 'Save' %}</button>
                             </form>
                         </td>
                         <td>{{ item.product.price }}</td>
@@ -42,9 +42,9 @@
         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <button type="submit" class="btn btn-outline-success">Order!</button>
+            <button type="submit" class="btn btn-outline-success">{% trans 'Order!' %}</button>
         </form>
     {% else %}
-        <h1>Basket is empty!</h1>
+        <h1>{% blocktrans %}Basket is empty!{% endblocktrans %}</h1>
     {% endif %}
 {% endblock %}

@@ -8,14 +8,19 @@ from shop.models import Product, Order, BasketItem
 class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
         strip=False,
-        widget=forms.PasswordInput(
-            attrs={'autocomplete': 'new-password', 'class': 'some-class'}
-        ),
     )
+    email = forms.EmailField()
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password1', 'password2', 'first_name')
+        fields = ('username', 'password1', 'password2', 'email')
+
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
 
 
 class BasketEditForm(forms.Form):

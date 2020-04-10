@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <button type="submit">Login</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">{{ field.label }}</label>
+                <br/>
+                {{ field }}
+                <br/>
+            </div>
+        {% endfor %}
+        <br/>
+        <button type="submit" class="btn btn-primary">{% trans 'Login' %}</button>
 {% endblock content %}
