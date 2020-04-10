@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
     def get_subcategories(self, obj):
         subcategories = obj.subcategories.all().values_list('title', flat=True)
         return ', '.join(subcategories)
-    get_subcategories.short_description = 'Subcategories'
+    get_subcategories.short_description = _('Subcategories')
 
 
 class ProductImageInline(admin.TabularInline):
@@ -63,12 +63,16 @@ class OrderAdmin(admin.ModelAdmin):
         return obj.basket.user
     get_user.short_description = 'User'
 
+    def get_basket(self, obj):
+        return obj.basket.pk
+    get_basket.short_description = _('Basket')
+
     def get_ordered_products(self, obj):
         result = ''
         for item in obj.basket.items.all():
             result += f'<strong>{item.product}</strong>: {item.count}<br>'
         return mark_safe(result)
-    get_ordered_products.short_description = 'Products'
+    get_ordered_products.short_description = _('Products')
 
     def get_products_count(self, obj):
         count = obj.basket.items.all().count()
@@ -77,7 +81,7 @@ class OrderAdmin(admin.ModelAdmin):
         ) % {
             'items_count': count
         }
-    get_products_count.short_description = _('Количество продуктов')
+    get_products_count.short_description = _('Product_number')
 
 
 admin.site.register(Product, ProductAdmin)

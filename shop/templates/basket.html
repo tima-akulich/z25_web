@@ -2,49 +2,55 @@
 {% load i18n %}
 {% block content %}
     {% if basket.items.all %}
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Count</th>
-                <th scope="col">Price</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-                {% for item in basket.items.all %}
-                    <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ item }}</td>
-                        <td>
-                            <form method="post" action="{% url 'basket-item' item_id=item.id %}">
-                                {% csrf_token %}
-                                <input type="number" min="1" max="{{ item.product.value }}" value="{{ item.count }}" name="count">
-                                <button type="submit" class="btn btn-dark btn-sm">Save</button>
-                            </form>
-                        </td>
-                        <td>{{ item.product.price }}</td>
-                        <td>
-                            {% include 'includes/basket_button.html' with product_id=item.product_id %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% with items_count=-1 %}
-            <span>
+        <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">{% trans 'Product' %}</th>
+      <th scope="col">{% trans 'Count' %}</th>
+      <th scope="col">{% trans 'Cost' %}</th>
+      <th scope="col">{% trans 'Remove' %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in basket.items.all %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td><a href="{% url 'product_details' pk=item.product_id %}">{{ item }}</a></td>
+          <td>
+              <form method="post" action="{% url 'basket-item' item_id=item.id %}">
+                  {% csrf_token %}
+                  <label>
+                      <input type="number" min="1" max="{{ item.product.value }}" value="{{ item.count }}" name="count">
+                  </label>
+                  <button type="submit" class="btn btn-dark btn-sm">{% trans 'Save' %}</button>
+              </form>
+          </td>
+          <td>{{ item.product.price }}$</td>
+          <td>{% include 'includes/basket_button.html' with product_id=item.product_id %}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        {% with items_count=5 %}
+          <th scope="row">
                 {% blocktrans count count=items_count %}{{ items_count }} product{% plural %}{{ items_count }} products{% endblocktrans %}
-            </span><br/>
+          </th><br/>
         {% endwith %}
-        <span class="right">{% blocktrans %} Total: {{ total }}{% endblocktrans %}</span>
-        <hr/>
-        <form method="post">
+        <td></td>
+          <td></td>
+          <th scope="row">{% trans 'Total cost' %}: {{ total }}$</th>
+          <td></td>
+    </tr>
+  </tbody>
+</table>
+         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <button type="submit" class="btn btn-outline-success">Order!</button>
+            <button type="submit" class="btn btn-outline-success">{% trans 'Order' %}!</button>
         </form>
     {% else %}
-        <h1>Basket is empty!</h1>
+        <div>
+            <h4>{% trans 'Basket is empty' %}!</h4>
+        </div>
     {% endif %}
 {% endblock %}

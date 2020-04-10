@@ -1,11 +1,11 @@
 {% load basket %}
-
+{% load i18n %}
 <form method="post" action="{% url 'basket-edit' %}">
     {% csrf_token %}
     <input type="hidden" name="product_id" value="{{ product_id }}">
     {% if user_product_ids|product_exists:product_id %}
-        <button class="btn btn-danger">Remove</button>
+        <button class="btn btn-danger">{% trans 'Remove' %}</button>
     {% else %}
-        <button class="btn btn-success">Add</button>
+        <button class="btn btn-success">{% trans 'Add' %}</button>
     {% endif %}
 </form>
