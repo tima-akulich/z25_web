@@ -44,11 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-<<<<<<< HEAD
-    'shop.middleware.Hook500Error',
-=======
     'shop.middleware.LogExceptionMiddleware',
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,10 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
-=======
-    # 'shop.middleware.MyMiddleware',
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'amazing_shop.urls'
@@ -122,7 +115,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Русский'),
+    ('be', 'Belarus'),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -150,6 +151,9 @@ LOGIN_REDIRECT_URL = reverse_lazy('products')
 LOGOUT_REDIRECT_URL = reverse_lazy('products')
 
 BASKET_STORE_DAYS = 30
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
 
 try:
     import django_heroku

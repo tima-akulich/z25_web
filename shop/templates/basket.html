@@ -1,14 +1,49 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
-    {% if basket %}
-        <table>
-        {% for item in basket.items.all %}
+    {% if basket.items.all %}
+        <table class="table">
+            <thead class="thead-dark">
             <tr>
-                <td>{{ item }}</td>
-                <td>{% include 'includes/basket_button.html' with product_id=item.product_id %}</td>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Count</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
             </tr>
-        {% endfor %}
+            </thead>
+            <tbody>
+                {% for item in basket.items.all %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item }}</td>
+                        <td>
+                            <form method="post" action="{% url 'basket-item' item_id=item.id %}">
+                                {% csrf_token %}
+                                <input type="number" min="1" max="{{ item.product.value }}" value="{{ item.count }}" name="count">
+                                <button type="submit" class="btn btn-dark btn-sm">Save</button>
+                            </form>
+                        </td>
+                        <td>{{ item.product.price }}</td>
+                        <td>
+                            {% include 'includes/basket_button.html' with product_id=item.product_id %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
+        {% with items_count=-1 %}
+            <span>
+                {% blocktrans count count=items_count %}{{ items_count }} product{% plural %}{{ items_count }} products{% endblocktrans %}
+            </span><br/>
+        {% endwith %}
+        <span class="right">{% blocktrans %} Total: {{ total }}{% endblocktrans %}</span>
+        <hr/>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-outline-success">Order!</button>
+        </form>
     {% else %}
         <h1>Basket is empty!</h1>
     {% endif %}

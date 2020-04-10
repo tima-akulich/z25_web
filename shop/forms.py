@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
-from shop.models import Product
+from shop.models import Product, Order, BasketItem
 
 
 class RegistrationForm(UserCreationForm):
@@ -59,4 +59,18 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('title', 'price', 'published', 'value')
+
+
+class OrderForm(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ('address', )
+
+
+class BasketItemForm(forms.ModelForm):
+    class Meta:
+        model = BasketItem
+        fields = ('count', )
+
 

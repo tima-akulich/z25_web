@@ -1,9 +1,11 @@
 from django.contrib import admin  # noqa
+from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
-from shop.models import Product
+from shop.models import Product, Order
 from shop.models import Category
 from shop.models import ProductImage
-from shop.models import Error505
 
 from shop.models import RequestError
 
@@ -31,10 +33,6 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ProductImageInline, )
 
 
-<<<<<<< HEAD
-class Error505Admin(admin.ModelAdmin):
-    list_display = ('status_code', 'body', 'time_period')
-=======
 class RequestErrorAdmin(admin.ModelAdmin):
     list_display = (
         'exception_name',
@@ -55,14 +53,35 @@ class RequestErrorAdmin(admin.ModelAdmin):
         'path',
         'created_at'
     )
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('get_user', 'address')
+    readonly_fields = ('basket', 'get_ordered_products', 'get_products_count')
+
+    def get_user(self, obj):
+        return obj.basket.user
+    get_user.short_description = 'User'
+
+    def get_ordered_products(self, obj):
+        result = ''
+        for item in obj.basket.items.all():
+            result += f'<strong>{item.product}</strong>: {item.count}<br>'
+        return mark_safe(result)
+    get_ordered_products.short_description = 'Products'
+
+    def get_products_count(self, obj):
+        count = obj.basket.items.all().count()
+        return ngettext(
+            '%(items_count)s product', '%(items_count)s products', count
+        ) % {
+            'items_count': count
+        }
+    get_products_count.short_description = _('Количество продуктов')
 
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
-<<<<<<< HEAD
-admin.site.register(Error505, Error505Admin)
-=======
-
 admin.site.register(RequestError, RequestErrorAdmin)
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0
+admin.site.register(Order, OrderAdmin)
+
