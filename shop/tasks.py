@@ -47,7 +47,7 @@ def send_email():
         messages.append(EmailMessage(
                         'New products from amazing_shop',
                         f'Hello, {name}!\nSee what\'s new here\n{products}',
-                        'anatskodr@gmail.com',
+                        'marketing@amazing_shop.com',
                         [email]))
     connection = mail.get_connection()
     connection.send_messages(messages)
