@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 17:54+0000\n"
+"POT-Creation-Date: 2020-04-09 10:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: shop/admin.py:76 shop/templates/basket.html:37
+#, python-format
+msgid "%(items_count)s product"
+msgid_plural "%(items_count)s products"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: shop/admin.py:80
+msgid "Количество продуктов"
+msgstr ""
 
 #: shop/models.py:11 shop/models.py:28
 msgid "Title"
@@ -36,7 +49,7 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: shop/models.py:21 shop/models.py:32
+#: shop/models.py:21 shop/models.py:32 shop/templates/navbar.html:16
 msgid "Categories"
 msgstr ""
 
@@ -52,10 +65,75 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: shop/models.py:39
+#: shop/models.py:39 shop/models.py:54 shop/models.py:95
 msgid "Product"
 msgstr ""
 
-#: shop/models.py:40
+#: shop/models.py:40 shop/templates/navbar.html:13
 msgid "Products"
+msgstr ""
+
+#: shop/models.py:47
+msgid "Description"
+msgstr ""
+
+#: shop/models.py:48 shop/models.py:58
+msgid "Image"
+msgstr ""
+
+#: shop/models.py:49
+msgid "Image base64"
+msgstr ""
+
+#: shop/models.py:59
+msgid "Images"
+msgstr ""
+
+#: shop/models.py:82
+msgid "User"
+msgstr ""
+
+#: shop/models.py:84 shop/models.py:113
+msgid "Created at"
+msgstr ""
+
+#: shop/models.py:85 shop/models.py:114
+msgid "Updated at"
+msgstr ""
+
+#: shop/models.py:93 shop/models.py:112
+msgid "Basket"
+msgstr ""
+
+#: shop/models.py:96
+msgid "Count"
+msgstr ""
+
+#: shop/models.py:119
+msgid "Status"
+msgstr ""
+
+#: shop/models.py:121
+msgid "Address"
+msgstr ""
+
+#: shop/models.py:125
+msgid "Exception name"
+msgstr ""
+
+#: shop/templates/base.html:12
+msgid ""
+"\n"
+"        <h1>Text 1</h1>\n"
+"        <h2>Text 2</h2>\n"
+"    "
+msgstr ""
+
+#: shop/templates/basket.html:40
+#, python-format
+msgid " Total: %(total)s"
+msgstr ""
+
+#: shop/templates/navbar.html:20
+msgid "My Basket"
 msgstr ""

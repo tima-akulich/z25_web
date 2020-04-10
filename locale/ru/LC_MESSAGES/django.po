@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-07 18:26+0000\n"
+"POT-Creation-Date: 2020-04-10 10:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,26 +20,42 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: shop/admin.py:76 shop/templates/basket.html:37
+#: shop/admin.py:20 shop/models.py:15
+msgid "Subcategories"
+msgstr "Подкатегория"
+
+#: shop/admin.py:64 shop/models.py:83
+msgid "User"
+msgstr "Пользователь"
+
+#: shop/admin.py:68
+msgid "Корзина"
+msgstr ""
+
+#: shop/admin.py:75 shop/models.py:41 shop/templates/navbar.html:13
+msgid "Products"
+msgstr "Продукты"
+
+#: shop/admin.py:80 shop/templates/basket.html:37
 #, python-format
 msgid "%(items_count)s product"
 msgid_plural "%(items_count)s products"
 msgstr[0] "%(items_count)s товар"
 msgstr[1] "%(items_count)s товара"
 msgstr[2] "%(items_count)s товаров"
-msgstr[3] "%(items_count)s товар??"
+msgstr[3] "%(items_count)s товары"
 
-#: shop/admin.py:80
+#: shop/admin.py:84
 msgid "Количество продуктов"
-msgstr ""
+msgstr "Количество продуктов"
 
-#: shop/models.py:11 shop/models.py:28
+#: shop/forms.py:14
+msgid "Password1"
+msgstr "Повторите пароль"
+
+#: shop/models.py:11 shop/models.py:28 shop/templates/basket.html:9
 msgid "Title"
 msgstr "Название"
-
-#: shop/models.py:15
-msgid "Subcategories"
-msgstr "Подкатегория"
 
 #: shop/models.py:17
 msgid "Slug"
@@ -53,7 +69,7 @@ msgstr "Категория"
 msgid "Categories"
 msgstr "Категории"
 
-#: shop/models.py:34
+#: shop/models.py:34 shop/templates/basket.html:11
 msgid "Price"
 msgstr "Цена"
 
@@ -65,50 +81,183 @@ msgstr "Количество"
 msgid "Published"
 msgstr "Опубликован"
 
-#: shop/models.py:39
+#: shop/models.py:40 shop/models.py:55 shop/models.py:100
 msgid "Product"
 msgstr "Продукт"
 
-#: shop/models.py:40 shop/templates/navbar.html:13
-msgid "Products"
-msgstr "Продукты"
+#: shop/models.py:48
+msgid "Description"
+msgstr "Описание"
 
-#: shop/templates/base.html:12
-msgid ""
-"\n"
-"        <h1>Text 1</h1>\n"
-"        <h2>Text 2</h2>\n"
-"    "
-msgstr ""
-"\n"
-"        <h2>Text 2</h2>\n"
-"        <h1>Text 1</h1>\n"
-"    "
+#: shop/models.py:49 shop/models.py:59
+msgid "Image"
+msgstr "Изображение"
 
-#: shop/templates/basket.html:40
+#: shop/models.py:50
+msgid "Image base64"
+msgstr "Изображение"
+
+#: shop/models.py:60
+msgid "Images"
+msgstr "Изображения"
+
+#: shop/models.py:85 shop/models.py:118 shop/models.py:141
+msgid "Created at"
+msgstr "Создано"
+
+#: shop/models.py:86 shop/models.py:119
+msgid "Updated at"
+msgstr "Изменено"
+
+#: shop/models.py:89 shop/models.py:98 shop/models.py:117
+#, fuzzy
+#| msgid "My Basket"
+msgid "Basket"
+msgstr "Корзина"
+
+#: shop/models.py:90
+#, fuzzy
+#| msgid "My Basket"
+msgid "Baskets"
+msgstr "Корзина"
+
+#: shop/models.py:101 shop/templates/basket.html:10
+msgid "Count"
+msgstr "Количество"
+
+#: shop/models.py:124
+msgid "Status"
+msgstr "Статус"
+
+#: shop/models.py:126
+msgid "Address"
+msgstr "Адрес"
+
+#: shop/models.py:129
+msgid "Order"
+msgstr "Заказ"
+
+#: shop/models.py:130
+msgid "Orders"
+msgstr "Заказы"
+
+#: shop/models.py:134
+msgid "Exception name"
+msgstr "Название исключения"
+
+#: shop/models.py:135
+msgid "Exception value"
+msgstr "Значение исключения"
+
+#: shop/models.py:136
+#, fuzzy
+#| msgid "Exception name"
+msgid "Exception tb"
+msgstr "Исключение"
+
+#: shop/models.py:137
+msgid "Request method"
+msgstr "Метод запроса"
+
+#: shop/models.py:138
+msgid "Path"
+msgstr "Путь"
+
+#: shop/models.py:139
+msgid "Query"
+msgstr "Запрос"
+
+#: shop/models.py:140
+msgid "Data"
+msgstr "Данные"
+
+#: shop/models.py:145
+msgid "Request Error"
+msgstr "Ошибка запроса"
+
+#: shop/models.py:146
+msgid "Request Errors"
+msgstr "Ошибки запроса"
+
+#: shop/templates/basket.html:24
+msgid "Save"
+msgstr "Сохранить"
+
+#: shop/templates/basket.html:41
 #, python-format
 msgid " Total: %(total)s"
 msgstr "Всего - %(total)s"
+
+#: shop/templates/basket.html:46
+msgid "Order!"
+msgstr "Заказать!"
+
+#: shop/templates/basket.html:49
+msgid "Basket is empty!"
+msgstr "Корзина пуста!"
+
+#: shop/templates/includes/_product_list.html:12
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: shop/templates/includes/_product_list.html:15
+msgid "Next"
+msgstr "Следующий"
+
+#: shop/templates/includes/basket_button.html:7
+msgid "Remove"
+msgstr "Удалить"
+
+#: shop/templates/includes/basket_button.html:9
+msgid "Add"
+msgstr "Добавить"
+
+#: shop/templates/includes/product.html:11
+msgid "Go to product"
+msgstr "Перейти к товару"
+
+#: shop/templates/navbar.html:3
+msgid "Shop"
+msgstr "Магазин"
 
 #: shop/templates/navbar.html:20
 msgid "My Basket"
 msgstr "Корзина"
 
-#, fuzzy, python-format
+#: shop/templates/navbar.html:26 templates/registration/login.html:7
+msgid "Login"
+msgstr "Войти"
+
+#: shop/templates/navbar.html:27 templates/registration/signup.html:7
+msgid "Signup"
+msgstr "Регистрация"
+
+#: shop/templates/navbar.html:30
+msgid "Logout"
+msgstr "Выйти"
+
+#: shop/templates/product_form.html:7
+#, fuzzy
+#| msgid "Created at"
+msgid "Create"
+msgstr "Создано"
+
+#~ msgid ""
+#~ "\n"
+#~ "        <h1>Text 1</h1>\n"
+#~ "        <h2>Text 2</h2>\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "        <h2>Text 2</h2>\n"
+#~ "        <h1>Text 1</h1>\n"
+#~ "    "
+
+#, fuzzy
 #~| msgid "%(items_count)s product"
 #~| msgid_plural "%(items_count)s products"
 #~ msgid "%(items_count)d product"
 #~ msgid_plural "%(items_count)d products"
-#~ msgstr[0] "%(items_count)s товар"
-#~ msgstr[1] "%(items_count)s товара"
-#~ msgstr[2] "%(items_count)s товаров"
-#~ msgstr[3] "%(items_count)s товар??"
-
-#, fuzzy, python-format
-#~| msgid "%(items_count)s product"
-#~| msgid_plural "%(items_count)s products"
-#~ msgid "%(count)d product"
-#~ msgid_plural "%(count)d products"
 #~ msgstr[0] "%(items_count)s товар"
 #~ msgstr[1] "%(items_count)s товара"
 #~ msgstr[2] "%(items_count)s товаров"

@@ -152,6 +152,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('products')
 LOGOUT_REDIRECT_URL = reverse_lazy('products')
 
 BASKET_STORE_DAYS = 30
+EMAIL_DAYS = 7
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'

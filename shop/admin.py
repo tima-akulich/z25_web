@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
     def get_subcategories(self, obj):
         subcategories = obj.subcategories.all().values_list('title', flat=True)
         return ', '.join(subcategories)
-    get_subcategories.short_description = 'Subcategories'
+    get_subcategories.short_description = _('Subcategories')
 
 
 class ProductImageInline(admin.TabularInline):
@@ -57,18 +57,22 @@ class RequestErrorAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('get_user', 'address')
-    readonly_fields = ('basket', 'get_ordered_products', 'get_products_count')
+    readonly_fields = ('get_basket', 'get_ordered_products', 'get_products_count')
 
     def get_user(self, obj):
         return obj.basket.user
-    get_user.short_description = 'User'
+    get_user.short_description = _('User')
+
+    def get_basket(self, obj):
+        return obj.basket.pk
+    get_basket.short_description = _('Корзина')
 
     def get_ordered_products(self, obj):
         result = ''
         for item in obj.basket.items.all():
             result += f'<strong>{item.product}</strong>: {item.count}<br>'
         return mark_safe(result)
-    get_ordered_products.short_description = 'Products'
+    get_ordered_products.short_description = _('Products')
 
     def get_products_count(self, obj):
         count = obj.basket.items.all().count()

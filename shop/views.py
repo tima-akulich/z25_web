@@ -137,7 +137,7 @@ class RegistrationView(FormView):
         user = authenticate(
             self.request,
             username=form.cleaned_data['username'],
-            password=form.cleaned_data['password1']
+            password=form.cleaned_data['password1'],
         )
         login(self.request, user)
         return super().form_valid(form)
@@ -217,7 +217,7 @@ class BasketView(LoginRequiredMixin, FormView):
             product = item.product
             product.value = F('value') - item.count
             products.append(product)
-        Product.objects.bulk_update(products)
+        Product.objects.bulk_update(products, fields=('value', ))
         Basket.objects.create(
             user=self.request.user
         )

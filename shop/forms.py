@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-
 from shop.models import Product, Order, BasketItem
 
 
@@ -12,10 +11,13 @@ class RegistrationForm(UserCreationForm):
             attrs={'autocomplete': 'new-password', 'class': 'some-class'}
         ),
     )
+    email = forms.EmailField(
+        required=True
+        )
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password1', 'password2', 'first_name')
+        fields = ('username', 'email', 'password1', 'password2', 'first_name' )
 
 
 class BasketEditForm(forms.Form):
