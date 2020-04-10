@@ -156,6 +156,12 @@ BASKET_STORE_DAYS = 30
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'amazing.shop.test@gmail.com'
+EMAIL_HOST_PASSWORD = 'qwedc321'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 try:
     import django_heroku
     django_heroku.settings(locals())
