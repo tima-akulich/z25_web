@@ -2,17 +2,26 @@ from django.contrib import admin  # noqa
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
+from django.conf import settings
 
 from shop.models import Product, Order
 from shop.models import Category
 from shop.models import ProductImage
+from shop.models import CategoryTranslation
 
 from shop.models import RequestError
+
+
+class CategoryTranslationAdmin(admin.TabularInline):
+    model = CategoryTranslation
+    fields = ('lang', 'title')
+    max_num = len(settings.LANGUAGES)
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'get_subcategories')
     filter_horizontal = ('subcategories', )
+    inlines = (CategoryTranslationAdmin, )
 
     def get_subcategories(self, obj):
         subcategories = obj.subcategories.all().values_list('title', flat=True)

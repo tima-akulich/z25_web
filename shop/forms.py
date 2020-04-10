@@ -6,6 +6,7 @@ from shop.models import Product, Order, BasketItem
 
 
 class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
     password1 = forms.CharField(
         strip=False,
         widget=forms.PasswordInput(
@@ -15,7 +16,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password1', 'password2', 'first_name')
+        fields = ('username', 'password1', 'password2', 'first_name', 'email')
 
 
 class BasketEditForm(forms.Form):
