@@ -1,13 +1,43 @@
 import base64
 
+from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, get_language
 
 
-class Category(models.Model):
+class ModelTranslation(models.Model):
+    __item_class__ = None
+
+    lang = models.CharField(
+        _('Lang'),
+        max_length=10,
+        choices=settings.LANGUAGES
+    )
+    title = models.CharField(
+        _('Title'),
+        max_length=100
+    )
+
+    class Meta:
+        abstract = True
+        unique_together = (
+            ('lang', 'item'),
+        )
+
+
+class LocalizationMixin:
+    @property
+    def localization(self):
+        translations = dict(self.translations.all().values_list(
+            'lang', 'title'))
+        lang = get_language()
+        return translations.get(lang) or self.id
+
+
+class Category(LocalizationMixin, models.Model):
     title = models.CharField(_('Title'), max_length=20, unique=True)
     subcategories = models.ManyToManyField(
         'self',
@@ -24,6 +54,14 @@ class Category(models.Model):
         return self.title
 
 
+class CategoryTranslation(ModelTranslation):
+    item = models.ForeignKey(
+        'shop.Category',
+        on_delete=models.CASCADE,
+        related_name='translations'
+    )
+
+
 class Product(models.Model):
     title = models.CharField(_('Title'), max_length=50)
     categories = models.ManyToManyField(
@@ -34,6 +72,8 @@ class Product(models.Model):
     price = models.FloatField(_('Price'))
     value = models.PositiveIntegerField(_('Value'))
     published = models.BooleanField(_('Published'), default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _('Product')
@@ -73,7 +113,8 @@ class Basket(models.Model):
         get_user_model(),
         null=True,
         blank=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
+        related_name='baskets'
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -97,12 +138,16 @@ class Order(models.Model):
     PROCESSING = 'processing'
     PROCESSED = 'processed'
     ORDER_STATUS = (
-        (WAITING, WAITING.title()),
-        (PROCESSING, PROCESSING.title()),
-        (PROCESSED, PROCESSED.title())
+        (WAITING, _('Waiting')),
+        (PROCESSING, _('Processing')),
+        (PROCESSED, _('Processed'))
     )
 
-    basket = models.ForeignKey('shop.Basket', on_delete=models.CASCADE)
+    basket = models.ForeignKey(
+        'shop.Basket',
+        on_delete=models.CASCADE,
+        related_name='orders'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(
@@ -113,16 +158,6 @@ class Order(models.Model):
     address = models.TextField()
 
 
-<<<<<<< HEAD
-class Error505(models.Model):
-    status_code = models.PositiveSmallIntegerField()
-    body = models.TextField()
-    time_period = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Ошибка 505'
-        verbose_name_plural = 'Ошибки 505'
-=======
 class RequestError(models.Model):
     exception_name = models.CharField(max_length=50)
     exception_value = models.CharField(max_length=250)
@@ -138,4 +173,3 @@ class RequestError(models.Model):
 
     def __str__(self):
         return f'{self.exception_name}: {self.exception_value}'
->>>>>>> d7cffe717e0a719dd5bf666ed4c3b6acbd90c6d0

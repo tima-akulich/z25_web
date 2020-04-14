@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<h1>Hi, {{ user }}</h1>
+<h2>New products</h2>
+<ul>
+    {% for product in products %}
+        <li><strong>{{ product }}</strong> - {{ product.price }}BYN</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

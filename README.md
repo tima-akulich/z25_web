@@ -98,3 +98,16 @@ email о новых товарах которые поступили в прод
 PS: https://docs.djangoproject.com/en/3.0/topics/email/
 
 PSS: кто сделает реальную отправку письма на реальную почту тому +
+
+ # 7. Lesson / 10.04.2020
+### Documentation
+- https://ru.wikipedia.org/wiki/API - что такое API
+- https://habr.com/ru/post/351890/ - Best Practices
+- https://www.django-rest-framework.org/
+
+### Homework 7
+0. Создать API для регистрация пользователя
+1. Создать API на получения списка продуктов
+2. API для добавления товара в корзину
+3. API для оформления заказа
+4. Задеплоить на Heroku
