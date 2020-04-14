@@ -2,11 +2,11 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import ValidationError
-
 from shop.models import Category, CategoryTranslation
 from shop.models import Product
 from shop.models import BasketItem
 from shop.models import Order
+from shop.models import Category, CategoryTranslation
 User = get_user_model()
 
 
@@ -40,6 +40,7 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, data):
         self.user = User.objects.filter(username=data['username']).first()
+
         if not self.user or not self.user.check_password(data['password']):
             raise serializers.ValidationError('Invalid credentials')
         return data
@@ -87,3 +88,4 @@ class OrderEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('address', 'basket')
+

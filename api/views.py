@@ -9,6 +9,7 @@ from api.serializers import ProductListSerializer, UserSerializer, BasketEditSer
 from shop.models import Category, Product, Order, Basket
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import OrderEditSerializer
+from shop.models import Category
 
 
 # class CategoryListCreateView(ListAPIView, CreateAPIView):
