@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'shop.middleware.LogExceptionMiddleware',
+    # 'shop.middleware.LogExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -171,7 +171,7 @@ ADMIN_EMAIL = 'hi@amazing-shop.by'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 1,
+    'PAGE_SIZE': 5,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',

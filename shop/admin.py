@@ -33,13 +33,14 @@ class ProductImageInline(admin.TabularInline):
     model = ProductImage
     fields = ('description', 'image', 'image_base64')
     extra = 0
-    min_num = 1
+    min_num = 0
     max_num = 5
 
 
 class ProductAdmin(admin.ModelAdmin):
     filter_horizontal = ('categories',)
     inlines = (ProductImageInline, )
+    list_display = ('__str__', 'published')
 
 
 class RequestErrorAdmin(admin.ModelAdmin):

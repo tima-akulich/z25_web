@@ -21,7 +21,7 @@ urlpatterns = [
     path('cbv1', TemplateView.as_view(template_name='try_cbv.html'), name='try_cbv'),
     path('form', ProductFormView.as_view(), name='product_form'),
     path('', ProductsList.as_view(), name='products'),
-    path('product/<str:pk>', ProductDetail.as_view(), name='product_details'),
+    path('product/<str:pk>', product_details_view, name='product_details'),
     path('category/', category_root_view, name='categories_list'),
     path('category/<slug:category>', ProductsList.as_view(), name='products_by_category'),
     path('signup', RegistrationView.as_view(), name='signup'),
