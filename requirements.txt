@@ -1,3 +1,5 @@
+requests
+djangorestframework
 Django==3.0.4
 psycopg2-binary==2.8.4
 Pillow==7.1.1
