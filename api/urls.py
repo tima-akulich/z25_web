@@ -15,9 +15,9 @@ urlpatterns = [
     # path('categories/<int:pk>', CategoryDetailsView.as_view(), name='category.details'),
     path('login', LoginApiView.as_view(), name='login'),
     path('signup', SignUpApiView.as_view(), name='signup'),
-    path('products', ProductListView.as_view(), name='products_list'),
-    path('categories/<int:pk>/products', ProductListView.as_view(), name='products_by_category'),
-    path('basket', BasketDetailsView.as_view(), name='basket'),
+    path('productss', ProductListView.as_view(), name='products_list'),
+    path('categories/<int:pk>/productss', ProductListView.as_view(), name='products_by_category'),
+    path('basket', BasketDetailsView.as_view(), name='basket-api'),
     path('schema', get_schema_view(
         title='Shop API',
         description='Api for amazing shop',
